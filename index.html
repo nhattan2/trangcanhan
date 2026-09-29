@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhật Tân</title>
+    <link rel="icon" href="tnt.jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+        /* Ẩn hoàn toàn thanh cuộn cho mọi trình duyệt */
+        html {
+            scrollbar-width: none;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        body.light-theme {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+
+        body.light-theme .bg-glow {
+            background: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.08), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.05), transparent 50%);
+        }
+
+        body.light-theme .glass-card,
+        body.light-theme .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+
+        body.light-theme .social-btn {
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(226, 232, 240, 1);
+            color: #0f172a;
+        }
+
+        body.light-theme .social-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.1);
+        }
+
+        body.light-theme .nav-arrow {
+            background: rgba(0, 0, 0, 0.03);
+            color: #64748b;
+        }
+
+        body.light-theme .social-btn:hover .nav-arrow {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        body.dark-theme {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+
+        body.dark-theme .bg-glow {
+            background: radial-gradient(circle at 50% 20%, rgba(59, 130, 246, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1), transparent 50%);
+        }
+
+        body.dark-theme .glass-card,
+        body.dark-theme .modal-content {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        body.dark-theme .social-btn {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+        }
+
+        body.dark-theme .social-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        body.dark-theme .nav-arrow {
+            background: rgba(255, 255, 255, 0.05);
+            color: #9ca3af;
+        }
+
+        body.dark-theme .social-btn:hover .nav-arrow {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        #telegram-modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="relative px-4 py-8">
+
+    <div class="bg-glow"></div>
+
+    <div class="w-full max-w-lg mx-auto">
+        <div class="glass-card rounded-3xl p-6 md:p-8 text-center">
+
+            <!-- Avatar chính & Tên -->
+            <div class="flex flex-col items-center mb-6">
+                <div class="relative w-24 h-24 md:w-28 md:h-28 mb-4">
+                    <img src="tnt.jpg" alt="Nhật Tân"
+                        class="w-full h-full object-cover rounded-full border-2 border-blue-500/30 shadow-md">
+                </div>
+
+                <div class="flex items-center justify-center gap-1.5">
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight">Nhật Tân</h1>
+                    <!-- Tích xanh -->
+                    <svg class="w-5 h-5 text-blue-500 inline-block shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.12 14.28L6.8 12.36l1.41-1.41 2.67 2.67 6.13-6.13 1.41 1.41-7.54 7.54z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="space-y-3.5">
+
+                <!-- Facebook -->
+                <div onclick="openLink('https://web.facebook.com/muonlamembecuamoicau/')"
+                    class="social-btn flex items-center justify-between p-3.5 rounded-2xl transition-all group cursor-pointer">
+                    <div class="flex items-center gap-3.5">
+                        <div
+                            class="w-11 h-11 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-600 group-hover:scale-105 transition-transform shadow-sm">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </div>
+                        <span class="font-semibold text-sm tracking-wide">Facebook</span>
+                    </div>
+                    <div class="nav-arrow w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Instagram -->
+                <div onclick="openLink('https://www.instagram.com/babycuaaivayta/')"
+                    class="social-btn flex items-center justify-between p-3.5 rounded-2xl transition-all group cursor-pointer">
+                    <div class="flex items-center gap-3.5">
+                        <div
+                            class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500/15 via-pink-600/15 to-purple-600/15 flex items-center justify-center text-pink-600 group-hover:scale-105 transition-transform shadow-sm">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </div>
+                        <span class="font-semibold text-sm tracking-wide">Instagram</span>
+                    </div>
+                    <div class="nav-arrow w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Threads -->
+                <div onclick="openLink('https://www.threads.com/@muonlamembecuacau')"
+                    class="social-btn flex items-center justify-between p-3.5 rounded-2xl transition-all group cursor-pointer">
+                    <div class="flex items-center gap-3.5">
+                        <div
+                            class="w-11 h-11 rounded-xl overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+                            <img src="threads-logo.png" alt="Threads" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-semibold text-sm tracking-wide">Threads</span>
+                    </div>
+                    <div class="nav-arrow w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Telegram -->
+                <div onclick="openTelegramModal()"
+                    class="social-btn flex items-center justify-between p-3.5 rounded-2xl transition-all group cursor-pointer">
+                    <div class="flex items-center gap-3.5">
+                        <div
+                            class="w-11 h-11 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-500 group-hover:scale-105 transition-transform shadow-sm">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.228-.46-1.903-.903-1.056-.693-1.653-1.124-2.678-1.8-1.185-.781-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.333-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.119.098.152.228.163.33.012.115.025.374.009.58z" />
+                            </svg>
+                        </div>
+                        <span class="font-semibold text-sm tracking-wide">Telegram</span>
+                    </div>
+                    <div class="nav-arrow w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- X -->
+                <div onclick="openLink('https://x.com/benho2810')"
+                    class="social-btn flex items-center justify-between p-3.5 rounded-2xl transition-all group cursor-pointer">
+                    <div class="flex items-center gap-3.5">
+                        <div
+                            class="w-11 h-11 rounded-xl overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform shadow-sm">
+                            <img src="x-logo.jpg" alt="X" class="w-full h-full object-cover">
+                        </div>
+                        <span class="font-semibold text-sm tracking-wide">X</span>
+                    </div>
+                    <div class="nav-arrow w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- POPUP MODAL LỰA CHỌN TELEGRAM -->
+    <div id="telegram-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center px-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div
+            class="modal-content w-full max-w-md max-h-[90vh] overflow-y-auto rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-2xl">
+
+            <div
+                class="flex items-center justify-center w-12 h-12 mx-auto mb-3 rounded-2xl bg-sky-500/10 text-sky-500 text-2xl shadow-sm">
+                <i class="fa-brands fa-telegram"></i>
+            </div>
+
+            <h3 class="text-lg font-bold mb-1">TELEGRAM</h3>
+            <div class="space-y-3 text-left">
+                <!-- 1. Trang cá nhân (Dùng ảnh tnt.jpg) -->
+                <div onclick="openLink('https://t.me/embecuacau'); closeTelegramModal();"
+                    class="social-btn flex items-center justify-between p-3 rounded-2xl transition-all cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-full overflow-hidden shadow-sm shrink-0 border border-blue-500/20">
+                            <img src="tnt.jpg" alt="Trang cá nhân" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Trang cá nhân</div>
+                        </div>
+                    </div>
+                    <div
+                        class="nav-arrow w-7 h-7 rounded-full flex items-center justify-center transition-colors shrink-0">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- 2. Đại Học Duy Tân -->
+                <div onclick="openLink('https://t.me/Duy_Tan_University'); closeTelegramModal();"
+                    class="social-btn flex items-center justify-between p-3 rounded-2xl transition-all cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 text-sm shrink-0">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Thông Báo Đại Học Duy Tân</div>
+                        </div>
+                    </div>
+                    <div
+                        class="nav-arrow w-7 h-7 rounded-full flex items-center justify-center transition-colors shrink-0">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- 3. Chat DTU -->
+                <div onclick="openLink('https://t.me/Dai_Hoc_Duy_Tann'); closeTelegramModal();"
+                    class="social-btn flex items-center justify-between p-3 rounded-2xl transition-all cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 text-sm shrink-0">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Chat DTU</div>
+                        </div>
+                    </div>
+                    <div
+                        class="nav-arrow w-7 h-7 rounded-full flex items-center justify-center transition-colors shrink-0">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- 4. MyDTU -->
+                <div onclick="openLink('https://t.me/mydtuduytan'); closeTelegramModal();"
+                    class="social-btn flex items-center justify-between p-3 rounded-2xl transition-all cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 text-sm shrink-0">
+                            <i class="fa-solid fa-school"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">MyDTU</div>
+                        </div>
+                    </div>
+                    <div
+                        class="nav-arrow w-7 h-7 rounded-full flex items-center justify-center transition-colors shrink-0">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- 5. Tài liệu DTU -->
+                <div onclick="openLink('https://t.me/tailieudtu'); closeTelegramModal();"
+                    class="social-btn flex items-center justify-between p-3 rounded-2xl transition-all cursor-pointer group">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 text-sm shrink-0">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-sm">Tài liệu DTU</div>
+                        </div>
+                    </div>
+                    <div
+                        class="nav-arrow w-7 h-7 rounded-full flex items-center justify-center transition-colors shrink-0">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nút Đóng -->
+            <button onclick="closeTelegramModal()"
+                class="mt-5 w-full py-2.5 rounded-xl text-xs font-semibold opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+                Đóng
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Hàm mở link an toàn qua JS
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // Điều khiển ẩn/hiện Modal Telegram
+        function openTelegramModal() {
+            const modal = document.getElementById('telegram-modal');
+            const content = modal.querySelector('.modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }
+
+        function closeTelegramModal() {
+            const modal = document.getElementById('telegram-modal');
+            const content = modal.querySelector('.modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
+
+        // Đóng modal khi bấm ra ngoài vùng nội dung modal
+        window.addEventListener('click', function (e) {
+            const modal = document.getElementById('telegram-modal');
+            if (e.target === modal) {
+                closeTelegramModal();
+            }
+        });
+
+        // 1. Chống click chuột phải
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        // 2. Chống bôi đen và copy văn bản
+        document.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        });
+        document.addEventListener('copy', function (e) {
+            e.preventDefault();
+        });
+
+        // 3. Chống các phím tắt mở công cụ nhà phát triển
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        function autoSetTheme() {
+            const hour = new Date().getHours();
+            const body = document.body;
+
+            if (hour >= 6 && hour < 18) {
+                body.className = body.className.replace('dark-theme', '').trim() + ' light-theme';
+            } else {
+                body.className = body.className.replace('light-theme', '').trim() + ' dark-theme';
+            }
+        }
+
+        autoSetTheme();
+    </script>
+</body>
+
+</html>
